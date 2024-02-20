@@ -1,6 +1,8 @@
 ### Project Title
+Enhancing Credit Score Prediction to Empower Financial Inclusion
 
 **Author**
+Vassilis Tsoubris
 
 #### Executive summary
 
@@ -32,7 +34,7 @@ I would like to apply a model called ANFIS ( Artificial Neuro-Fuzzy Inference Sy
 
 #### Outline of project
 
-- [Link to notebook 1]()
+- [Notebook 1 - Initial Data Cleansing and Understanding](DataCleansing.ipynb)
 - [Link to notebook 2]()
 - [Link to notebook 3]()
 
