@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
+from sklearn.preprocessing import LabelEncoder
 
 def plot_triangular_heatmap(dataframe):
     """
@@ -19,9 +19,9 @@ def plot_triangular_heatmap(dataframe):
 
 
 
-def correlation_with_target(data, feature):
+def correlation_with_target(data, feature, corr_method = 'kendall'):
     """
-    Calculate the correlation between a feature and the target variable.
+    Calculate the correlation (method = kendall) between a feature and the target variable.
 
     :param data: The input DataFrame containing the data.
     :type data: pandas.DataFrame
@@ -46,11 +46,36 @@ def correlation_with_target(data, feature):
         df['Credit_Score'] = LabelEncoder().fit_transform(df['Credit_Score'])
 
     # Compute correlation
-    correlation = df[[feature, 'Credit_Score']].corr().iloc[0, 1]
+    correlation = df[[feature, 'Credit_Score']].corr(method = corr_method).iloc[0, 1]
 
     return correlation
 
 
 
+def find_correlated_features(df, threshold, corre_method = 'kendall'):
+    """
+    Computes correlation of each feature with target 'Credit_Score' and keeps features with correlation >= threshold.
 
+    Params:
+    df : pandas.DataFrame, The input dataframe
+    threshold : Correlation threshold, only correlations >= threshold are kept
+
+    Returns:
+    pandas.core.series.Series, Features that have correlation >= threshold with 'Credit_Score'.
+    """
+    correlated_features = {}
+
+    # Iterating over each column(feature) in the DataFrame
+    for feature in df.columns:
+        # Exclude the target variable 'Credit_Score'
+        if feature != 'Credit_Score':
+            correlation = correlation_with_target(df, feature, corr_method = corre_method)
+            # Check if correlation value is numeric (i.e., the function didn't return an error message)
+            if isinstance(correlation, (float, int)):
+                # Check if correlation is greater than or equal to threshold
+                if abs(correlation) >= threshold:
+                    correlated_features[feature] = correlation
+
+    # Converting the dictionary to a pandas Series for better visual output
+    return pd.Series(correlated_features).sort_values(ascending=False)
 #%%
