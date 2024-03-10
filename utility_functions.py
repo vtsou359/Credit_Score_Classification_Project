@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
 import seaborn as sns
 
 from sklearn.preprocessing import LabelEncoder
@@ -98,3 +99,55 @@ def create_plots_box_violin(data):
 
             plt.tight_layout()  # For better spacing between subplots
             plt.show()  # Show the plots
+
+
+
+def plot_categorical_stacked(df, target = 'Credit_Score',excluded_feats=['Type_of_Loan'], percentage=False, color_map = ['#F05941','#BE3144','#872341']):
+    """
+    :param df: The Pandas DataFrame containing the categorical data.
+    :param target: The target variable column name.
+    :param excluded_feats: A list of column names to be excluded from the analysis.
+    :param percentage: Boolean flag indicating whether to display counts or proportions in the plot.
+    :return: None
+
+    This method plots a stacked bar plot to visualize the distribution of categorical variables in relation to the target variable. It takes the following parameters:
+
+    - df: The Pandas DataFrame containing the categorical data.
+    - target: The target variable column name. By default, it is set to 'Credit_Score'.
+    - excluded_feats: A list of column names to be excluded from the analysis. By default, it excludes the 'Type_of_Loan' column.
+    - percentage: A boolean flag indicating whether to display the counts or proportions in the plot. By default, it is set to False.
+
+    The method works by grouping the data by the target and categorical columns, calculating counts or proportions if specified, and plotting the stacked bar plot using matplotlib. The x
+    *-axis labels are rotated for readability, and the plot is displayed using plt.show(). The title and y-label are set based on the values of the percentage flag.
+
+    Note: This method requires the matplotlib and pandas libraries to be installed.
+    """
+
+    # creating a colormap to be used:
+    colors = color_map
+    my_cmap = ListedColormap(colors, name="my_cmap")
+
+
+    categorical_columns = df.drop(excluded_feats, axis=1).select_dtypes(['object', 'category']).columns.tolist()
+
+    if target in categorical_columns:
+        categorical_columns.remove(target)
+
+    for column in categorical_columns:
+        counts = df.groupby([target, column]).size().unstack(target)
+
+        if percentage:
+            # Calculate the proportions
+            counts = counts.apply(lambda x: (x / x.sum())*100, axis=1)
+
+        # Plot
+        counts.plot(kind='bar', stacked=True, figsize=(10, 6), colormap= my_cmap)
+        if percentage:
+            plt.title(f'Stacked bar plot of proportions - {column} per {target} class')
+            plt.ylabel('Proportion')
+        else:
+            plt.title(f'Stacked bar plot - {column} per {target} class')
+            plt.ylabel('Count')
+        plt.xticks(rotation=45)  # Rotate x-axis labels for readability
+        plt.tight_layout()
+        plt.show()
