@@ -78,4 +78,23 @@ def find_correlated_features(df, threshold, corre_method = 'kendall'):
 
     # Converting the dictionary to a pandas Series for better visual output
     return pd.Series(correlated_features).sort_values(ascending=False)
-#%%
+
+
+
+
+
+def create_plots_box_violin(data):
+    for column in data.columns:
+        if column != 'Credit_Score':  # we don't want to make a plot for the target variable
+            fig, axes = plt.subplots(1, 2, figsize=(15, 5))
+
+            # Boxplot
+            sns.boxplot(x='Credit_Score', y=column, data=data, ax=axes[0], palette=['#F05941','#BE3144','#872341'], hue = 'Credit_Score')
+            axes[0].set_title(f'Boxplot of {column}')  # Set title
+
+            # Violin plot
+            sns.violinplot(x='Credit_Score', y=column, data=data, ax=axes[1], palette=['#F05941','#BE3144','#872341'], hue = 'Credit_Score')
+            axes[1].set_title(f'Violin plot of {column}')  # Set title
+
+            plt.tight_layout()  # For better spacing between subplots
+            plt.show()  # Show the plots
