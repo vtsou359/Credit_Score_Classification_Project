@@ -9,4 +9,4 @@ scikit-learn
 tensorflow
 keras
 optuna
-yellowbrick
+yellowbric

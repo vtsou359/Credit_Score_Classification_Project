@@ -41,3 +41,4 @@ I would like to apply a model called ANFIS ( Artificial Neuro-Fuzzy Inference Sy
 
 
 ##### Contact and Further Information
+Contact me through [LinkedIn]()
