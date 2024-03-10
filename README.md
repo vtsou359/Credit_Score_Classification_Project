@@ -34,11 +34,15 @@ What suggestions do you have for next steps?
 I would like to apply a model called ANFIS ( Artificial Neuro-Fuzzy Inference System ) which is a NN type.
 
 #### Outline of project
-
+Notebooks:
 - [Notebook 1 - Initial Data Cleansing and Understanding](DataCleansing.ipynb)
 - [Notebook 2 - EDA on Clean Data and final dataset](EDA_cleaned_data.ipynb)
 - [Link to notebook 3]()
 
+Python Scripts:
+- [Custom functions used on Notebook 2](custom_functions/utility_functions.py) 
+
 
 ##### Contact and Further Information
-Contact me through [LinkedIn]()
+Contact me through:
+- [LinkedIn](https://www.linkedin.com/in/vtsoubris/)
