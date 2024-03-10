@@ -10,12 +10,13 @@ Vassilis Tsoubris
 Why should anyone care about this question?
 
 #### Research Question
-Can machine learning and AI models accurately predict individual credit scores based on historical financial data, thereby improving the decision-making process for lending institutions?
+Can machine learning and AI models accurately predict individual credit scores based on financial data, thereby improving the decision-making process for lending institutions?
 
 #### Data Sources
 The primary dataset for this analysis will be sourced from Kaggle, specifically the "Credit Score Classification" dataset available at this [link](https://www.kaggle.com/datasets/parisrohan/credit-score-classification?select=train.csv).
 
-This dataset contains historical financial data, including payment history, credit usage, and personal demographics, crucial for predicting credit scores. The target variable is the credit score of the customer ( 3 classes: Poor, Standard, Good ).  This dataset consists of 55 columns and contains 12500 customers. It is quite a challenging dataset as it needs advanced techniques to clean the data and transform its shape.
+This dataset contains historical financial data, including payment history, credit usage, and personal demographics, crucial for predicting credit scores. The target variable is the credit score of the customer ( 3 classes: Poor, Standard, Good ).
+This dataset consists of 25 columns and contains 12500 customers. It is quite a challenging dataset as it needs advanced techniques to clean the data and transform its shape.
 
 #### Methodology
 The project will utilize a combination of supervised machine learning techniques, including but not limited to, Random Forests, Gradient Boosting Machines (GBM),  Logistic Regression, Decision Trees, Convolutional Neural Networks etc.. 
@@ -35,7 +36,7 @@ I would like to apply a model called ANFIS ( Artificial Neuro-Fuzzy Inference Sy
 #### Outline of project
 
 - [Notebook 1 - Initial Data Cleansing and Understanding](DataCleansing.ipynb)
-- [Link to notebook 2]()
+- [Notebook 2 - EDA on Clean Data and final dataset](EDA_cleaned_data.ipynb)
 - [Link to notebook 3]()
 
 

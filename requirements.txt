@@ -8,3 +8,5 @@ plotly-express
 scikit-learn
 tensorflow
 keras
+optuna
+yellowbrick
