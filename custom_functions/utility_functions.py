@@ -86,6 +86,12 @@ def find_correlated_features(df, threshold, corre_method = 'kendall'):
 
 
 def create_plots_box_violin(data):
+    """
+    Create box and violin plots for each column in the given data.
+
+    :param data: The dataset to create the plots for.
+    :return: None
+    """
     for column in data.columns:
         if column != 'Credit_Score':  # we don't want to make a plot for the target variable
             fig, axes = plt.subplots(1, 2, figsize=(15, 5))
