@@ -38,7 +38,7 @@ Notebooks:
 - [Notebook 1 - Initial Data Cleansing and Understanding](DataCleansing.ipynb)
 - [Notebook 2 - EDA on Clean Data and final dataset](EDA_cleaned_data.ipynb)
 - [Notebook 3 - Features Engineering and Cross Validation Strategy](Feature_Engineering_and_Data_Splitting.ipynb)
-- [Notebook 4 - Initial Models: Logistic Regression, KNN, Decision Trees and SVM](Initial_models.ipynb)
+- [Notebook 4 - Initial Models: Logistic Regression, KNN, Decision Trees and SVM](Models_and_Results.ipynb)
 
 Python Scripts (custom functions):
 - [Custom functions used on Notebook 2](custom_functions/utility_functions.py) 
