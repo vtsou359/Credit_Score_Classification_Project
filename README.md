@@ -16,7 +16,7 @@ Can machine learning and AI models accurately predict individual credit scores b
 The primary dataset for this analysis will be sourced from Kaggle, specifically the "Credit Score Classification" dataset available at this [link](https://www.kaggle.com/datasets/parisrohan/credit-score-classification?select=train.csv).
 
 This dataset contains historical financial data, including payment history, credit usage, and personal demographics, crucial for predicting credit scores. The target variable is the credit score of the customer ( 3 classes: Poor, Standard, Good ).
-This dataset consists of 25 columns and contains 12500 customers. It is quite a challenging dataset as it needs advanced techniques to clean the data and transform its shape.
+This dataset consists of 25 columns and contains 12500 customers (100k observations, 8 observations per customer). It is quite a challenging dataset as it needs advanced techniques to clean the data and transform its shape.
 
 #### Methodology
 The project will utilize a combination of supervised machine learning techniques, including but not limited to, Random Forests, Gradient Boosting Machines (GBM),  Logistic Regression, Decision Trees, Convolutional Neural Networks etc.. 
@@ -37,10 +37,12 @@ I would like to apply a model called ANFIS ( Artificial Neuro-Fuzzy Inference Sy
 Notebooks:
 - [Notebook 1 - Initial Data Cleansing and Understanding](DataCleansing.ipynb)
 - [Notebook 2 - EDA on Clean Data and final dataset](EDA_cleaned_data.ipynb)
-- [Link to notebook 3]()
+- [Notebook 3 - Features Engineering and Cross Validation Strategy](Feature_Engineering_and_Data_Splitting.ipynb)
+- [Notebook 4 - Initial Models: Logistic Regression, KNN, Decision Trees and SVM](Initial_models.ipynb)
 
-Python Scripts:
+Python Scripts (custom functions):
 - [Custom functions used on Notebook 2](custom_functions/utility_functions.py) 
+- [Custom function used on Notebook 4](custom_functions/preprocessor.py)
 
 
 ##### Contact and Further Information
