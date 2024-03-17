@@ -6,9 +6,10 @@ warnings.filterwarnings('ignore')
 
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelBinarizer
-from sklearn.metrics import roc_curve, auc
+from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score, f1_score
 # yellowbrick's visualisations:
 from yellowbrick.classifier import PrecisionRecallCurve, ClassPredictionError
+import pandas as pd
 
 
 ######## functions below: #########
@@ -149,3 +150,57 @@ def precision_recall_curve_plot(X_train, y_train, X_test, y_test,
     viz.show()
 
     return viz
+
+
+
+
+
+
+
+def all_models_metrics(grid_models, model_names, X_train, X_test, y_train, y_test):
+    """
+    :param grid_models: list of grid search models
+    :param model_names: list of model names corresponding to grid models
+    :param X_train: training features
+    :param X_test: testing features
+    :param y_train: training labels
+    :param y_test: testing labels
+    :return: DataFrame containing metrics for each model
+    """
+    # Initialize an empty dictionary to store metrics
+    metrics_grid = {}
+
+    # Should be same length for both lists
+    assert len(grid_models) == len(model_names), "Mismatch in length of 'grid_models' and 'model_names'"
+
+    for grid_model, model_name in zip(grid_models, model_names):
+        results = pd.DataFrame(grid_model.cv_results_)
+
+        # Extract best estimator and training time
+        best_estimator = grid_model.best_estimator_
+        training_time = results[results['params'] == grid_model.best_params_]['mean_fit_time'].values[0]
+
+        # Make predictions
+        y_train_pred = best_estimator.predict(X_train)
+        y_test_pred = best_estimator.predict(X_test)
+
+        # Calculate metrics
+        train_accuracy = accuracy_score(y_train, y_train_pred)
+        test_accuracy = accuracy_score(y_test, y_test_pred)
+        recall = recall_score(y_test, y_test_pred, zero_division=0, average = 'micro')
+        precision = precision_score(y_test, y_test_pred, zero_division=0, average = 'micro')
+        f1 = f1_score(y_test, y_test_pred, zero_division=0, average = 'micro')
+
+        # Store metrics in the dictionary
+        metrics_grid[model_name] = {
+            'training_time': training_time,
+            'train_accuracy': train_accuracy,
+            'test_accuracy': test_accuracy,
+            'recall micro-average': recall,
+            'precision micro-average': precision,
+            'f1_score micro-average': f1
+        }
+
+    # Convert dictionary to DataFrame and return
+    df_metrics_grid = pd.DataFrame.from_dict(metrics_grid, orient='index')
+    return df_metrics_grid
