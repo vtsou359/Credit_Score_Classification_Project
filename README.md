@@ -104,7 +104,7 @@ Below there are some recommendations and next steps to incorporate into the proj
 Notebooks:
 - [Notebook 1 - Initial Data Cleansing and Understanding](DataCleansing.ipynb)
 - [Notebook 2 - EDA on Clean Data and final dataset](EDA_cleaned_data.ipynb)
-- [Notebook 3 - Features Engineering and Cross Validation Strategy](Feature_Engineering_and_Data_Splitting.ipynb)
+- [Notebook 3 - Feature Engineering and Cross Validation Strategy](Feature_Engineering_and_Data_Splitting.ipynb)
 - [Notebook 4 - Modelling Phase, Results and Next-Step Recommendations: ](Models_and_Results.ipynb)
 
 Python Scripts (custom functions):
