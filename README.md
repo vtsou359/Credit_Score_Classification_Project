@@ -88,7 +88,6 @@ Lastly, the structure of the final chosen models is presented below.
 ![pipeline_gbc](./images/pipeline_lr_final.png)
 
 
-
 **Conclusion**: As indicated from the results above, machine learning could be used to produce credit scores of a financial institution's customers.
 More specifically, two models could be used in our case; the Gradient Boosting Classifier or the Logistic Regression.
 
