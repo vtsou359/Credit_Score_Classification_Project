@@ -6,10 +6,11 @@ warnings.filterwarnings('ignore')
 
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelBinarizer
-from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score, f1_score
+from sklearn.metrics import roc_curve, auc, accuracy_score, recall_score, precision_score, f1_score, confusion_matrix
 # yellowbrick's visualisations:
 from yellowbrick.classifier import PrecisionRecallCurve, ClassPredictionError
 import pandas as pd
+import seaborn as sns
 
 
 ######## functions below: #########
@@ -204,3 +205,44 @@ def all_models_metrics(grid_models, model_names, X_train, X_test, y_train, y_tes
     # Convert dictionary to DataFrame and return
     df_metrics_grid = pd.DataFrame.from_dict(metrics_grid, orient='index')
     return df_metrics_grid
+
+
+
+
+def plot_confusion_matrix(grid_search, X_test, y_test):
+    # Use the best estimator from grid_lr to predict test set results
+    y_pred = grid_search.best_estimator_.predict(X_test)
+
+    # Calculate precision and recall
+    precision = precision_score(y_test, y_pred, average='micro')
+    recall = recall_score(y_test, y_pred, average='micro')
+
+
+    # Generate confusion matrix
+    cm = confusion_matrix(y_test, y_pred)
+
+
+    # Plot confusion matrix
+    plt.figure(figsize=(6, 6))  # Resize plot to allow space for formula and scores
+    sns.heatmap(cm, annot=True, fmt='', cmap='Blues')
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.title('Confusion Matrix of the Best Estimator: '+grid_search.best_estimator_.named_steps['estimator'].__class__.__name__)
+
+
+    # Add the formulas for Precision and Recall at the bottom of the plot
+    plt.text(1.55, 0.9,
+             r'$Precision = \frac{TP}{TP + FP}$' + '\n' + f'Score: {precision:.2f}',
+             horizontalalignment='center',
+             verticalalignment='center',
+             transform = plt.gca().transAxes)
+
+    plt.text(1.55, 0.7,
+             r'$Recall = \frac{TP}{TP + FN}$' + '\n' + f'Score: {recall:.2f}',
+             horizontalalignment='center',
+             verticalalignment='center',
+             transform = plt.gca().transAxes)
+
+    # Adjust the layout to make room for the formulas
+    plt.subplots_adjust(bottom=0.2)
+    plt.show()
