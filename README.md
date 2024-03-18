@@ -36,6 +36,7 @@ Their results are demonstrated below:
 
 **Importand note**: You will notice that **test accuracy**, **recall**, **precision** and **f1** are similar. This is because of the **micro-average** used in the metrics. 
 **Micro-average** gives more weight to the majority class and is particularly useful when dealing with imbalanced class distributions.
+Furthermore, all models demonstrated on the tables below were fine-tuned by using the **Grid Search algorithm (exhaustive hyperparameters search) with K-folds Cross Validation**.
 
 | Models (12.5k observations - 11 features ) | training_time | train_accuracy | test_accuracy     | recall (micro-average)     | precision (micro-average)    | f1_score (micro-average)|   
 |--------------------------------------------|--------------|---------------|-------------------|----------------------------|------------------------------|-------------------------|
