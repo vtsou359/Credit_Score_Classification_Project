@@ -60,7 +60,12 @@ According to the above results of the final models:
 - Gradient Boosting Classifiers should be the alternative if the performance is our goal. Although they tend to overfit, the value difference between train and test accuracy score is smaller than of the random forest classifiers'. In other words GB Classifiers are more suitable models for credit scoring.
 - If training speed is our goal we should choose Logistic Regression. Logistic Regression is widely used on Credit Scoring systems and has a good performance (not excellent).
 
-Below, the ROC curves of the final chosen models are demonstrated along with their confusion matrices:
+Below, the ROC curves of the final chosen models are presented along with their confusion matrices. 
+
+Furthermore , the mapping of classes is demonstrated below (needed to interpret the confusion matrices):
+- Good: 0
+- Poor: 1
+- Standard: 2
 
 **Final Gradient Boosting Classifier**:
 
@@ -73,6 +78,16 @@ Below, the ROC curves of the final chosen models are demonstrated along with the
 ![cm_lr](./images/final_LR_v2.png)
 
 To check all the ROC-AUC curves and more technical plots you can reference the **Notebook 4**.
+
+Lastly, the structure of the final chosen models is presented below.
+
+**Final Gradient Boosting Classifier**:
+![pipeline_gbc](./images/pipeline_gbc_final.png)
+
+**Final Logistic Regression Classifier**:
+![pipeline_gbc](./images/pipeline_lr_final.png)
+
+
 
 **Conclusion**: As indicated from the results above, machine learning could be used to produce credit scores of a financial institution's customers.
 More specifically, two models could be used in our case; the Gradient Boosting Classifier or the Logistic Regression.
