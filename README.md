@@ -108,9 +108,9 @@ Notebooks:
 - [Notebook 4 - Modelling Phase, Results and Next-Step Recommendations: ](Models_and_Results.ipynb)
 
 Python Scripts (custom functions):
-- [Custom functions used on Notebook 2 (mostly used on visualisation)](custom_functions/utility_functions.py) 
-- [Custom preprocessing functions used on Notebook 4](custom_functions/preprocessor.py)
-- [Custom plotting and results demonstration functions used on Notebook 4](custom_functions/Fmodel_results_plots.py)
+- [Custom functions used on Notebook 2 (mostly used on visualisation)](./custom_functions/utility_functions.py) 
+- [Custom preprocessing functions used on Notebook 4](./custom_functions/preprocessor.py)
+- [Custom plotting and results demonstration functions used on Notebook 4](./custom_functions/model_results_plots.py)
 
 ### Contact and Further Information
 Contact me through:
