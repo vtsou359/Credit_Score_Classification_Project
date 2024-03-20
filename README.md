@@ -71,12 +71,12 @@ Furthermore , the mapping of classes is demonstrated below (needed to interpret 
 **Final Gradient Boosting Classifier**:
 
 ![roc_gbc](./images/ROC_gbc_v2_final.png)
-![cm_gbc](./images/final_cm_gbc_v2.png)
+![cm_gbc](./images/output_cm_gbc_v2.png)
 
 **Final Logistic Regression Classifier**:
 
 ![roc_lr](./images/ROC_lr_v2_final.png)
-![cm_lr](./images/final_LR_v2.png)
+![cm_lr](./images/output_cm_lr_v2.png)
 
 To check all the ROC-AUC curves and more technical plots you can reference the **Notebook 4**.
 

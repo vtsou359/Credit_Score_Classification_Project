@@ -214,8 +214,8 @@ def plot_confusion_matrix(grid_search, X_test, y_test):
     y_pred = grid_search.best_estimator_.predict(X_test)
 
     # Calculate precision and recall
-    precision = precision_score(y_test, y_pred, average='micro')
-    recall = recall_score(y_test, y_pred, average='micro')
+    #precision = precision_score(y_test, y_pred, average='micro')
+    #recall = recall_score(y_test, y_pred, average='micro')
 
 
     # Generate confusion matrix
@@ -231,17 +231,17 @@ def plot_confusion_matrix(grid_search, X_test, y_test):
 
 
     # Add the formulas for Precision and Recall at the bottom of the plot
-    plt.text(1.55, 0.9,
-             r'$Precision = \frac{TP}{TP + FP}$' + '\n' + f'Score: {precision:.2f}',
-             horizontalalignment='center',
-             verticalalignment='center',
-             transform = plt.gca().transAxes)
+    #plt.text(1.55, 0.9,
+    #         r'$Precision = \frac{TP}{TP + FP}$' + '\n' + f'Score: {precision:.2f}',
+    #         horizontalalignment='center',
+    #         verticalalignment='center',
+    #        transform = plt.gca().transAxes)
 
-    plt.text(1.55, 0.7,
-             r'$Recall = \frac{TP}{TP + FN}$' + '\n' + f'Score: {recall:.2f}',
-             horizontalalignment='center',
-             verticalalignment='center',
-             transform = plt.gca().transAxes)
+    #plt.text(1.55, 0.7,
+    #         r'$Recall = \frac{TP}{TP + FN}$' + '\n' + f'Score: {recall:.2f}',
+    #         horizontalalignment='center',
+    #         verticalalignment='center',
+    #         transform = plt.gca().transAxes)
 
     # Adjust the layout to make room for the formulas
     plt.subplots_adjust(bottom=0.2)
