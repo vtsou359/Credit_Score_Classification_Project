@@ -101,8 +101,7 @@ Indicatively, below I provide the correlations heatmap of all the numeric featur
 
 ![box_viol_delayduedate](./images/box_viol_delayduedate_smallsubset.png)
 
-
-![box_viol_outstandingdebt](./images/box_viol_outstanding debt_smallsubset.png)
+![box_viol_outdebt](./images/box_viol_outstanding debt_smallsubset.png)
 
 
 Also, the percentages per class of the target variable are shown below for the small subset (month==8) and for a combination of months.
