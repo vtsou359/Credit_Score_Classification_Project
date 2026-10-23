@@ -17,7 +17,7 @@ results = json.load(open(HERE / 'model_results.json'))
 # Dark-mode ordinal tier ramp (validated: monotone L, single hue, every step >= 3:1 on the #161922 panel)
 TIER = {'Poor': '#B83A5B', 'Standard': '#E0505A', 'Good': '#F8906F'}
 
-row = results['row_split']  # the split used in Notebook 4 / README
+row = results['final']  # final customer-level model of Notebook 4 / README
 auc = {k: row['auc'][k] for k in ('Good', 'Poor', 'Standard')}
 proba = results['sample']['proba']
 feats = results['sample']['features']
@@ -72,7 +72,8 @@ meters = ''.join(
 NICE = {'Outstanding_Debt': 'Outstanding debt', 'Credit_Mix': 'Credit mix',
         'Payment_of_Min_Amount': 'Min. payments', 'Delay_from_due_date': 'Payment delay',
         'Annual_Income': 'Annual income', 'Total_EMI_per_month': 'Monthly EMI',
-        'Num_of_Delayed_Payment': 'Delayed payments', 'Age': 'Age'}
+        'Num_of_Delayed_Payment': 'Delayed payments', 'Age': 'Age', 'Num_Bank_Accounts': 'Bank accounts',
+        'Num_of_Loan': 'Number of loans', 'Changed_Credit_Limit': 'Credit-limit change'}
 top = results['importances'][:5]
 vmax = top[0][1]
 drivers = ''.join(
@@ -134,7 +135,7 @@ h1 em {{ font-style:normal; background:linear-gradient(90deg,#F8906F 0%,#F05941 
 .stack {{ margin-top:22px; display:flex; flex-wrap:wrap; gap:7px; }}
 .stack span {{ font:500 11px "JetBrains Mono"; color:var(--t2); padding:5px 9px; border-radius:7px;
   border:1px solid var(--line); background:rgba(255,255,255,.025); }}
-.kpis {{ position:absolute; left:56px; top:478px; width:520px; display:grid;
+.kpis {{ position:absolute; left:56px; top:478px; width:556px; display:grid;
   grid-template-columns:repeat(4,1fr); }}
 .kpi {{ padding:0 14px; border-left:1px solid var(--line); }}
 .kpi:first-child {{ padding-left:0; border-left:0; }}
@@ -190,7 +191,7 @@ h1 em {{ font-style:normal; background:linear-gradient(90deg,#F8906F 0%,#F05941 
 .roc .lgv {{ font:500 9.5px Inter; fill:var(--t2); font-variant-numeric:tabular-nums; }}
 .panel.c {{ display:flex; flex-direction:column; }}
 .drivers {{ margin-top:16px; display:grid; gap:14px; }}
-.drv {{ display:grid; grid-template-columns:96px 1fr 30px; align-items:center; gap:8px; font-size:11.5px; color:var(--t2); }}
+.drv {{ display:grid; grid-template-columns:116px 1fr 30px; align-items:center; gap:8px; font-size:11.5px; color:var(--t2); }}
 .drv b {{ text-align:right; color:var(--t1); font-weight:500; font-variant-numeric:tabular-nums; }}
 .dbar {{ height:6px; }}
 .dbar div {{ height:100%; border-radius:0 3px 3px 0; background:#C9CDD8; }}
@@ -205,13 +206,13 @@ h1 em {{ font-style:normal; background:linear-gradient(90deg,#F8906F 0%,#F05941 
     <p class="lead">An end-to-end ML pipeline that turns <strong>100K messy customer records</strong> into
       <strong>Poor · Standard · Good</strong> credit-score predictions to promote financial inclusion.</p>
     <div class="stack"><span>Python</span><span>pandas</span><span>scikit-learn</span>
-      <span>Gradient Boosting</span><span>GridSearchCV</span></div>
+      <span>{row['model']}</span><span>GroupKFold CV</span></div>
   </div>
   <div class="kpis">
     <div class="kpi"><b>100K</b><span>customer records<br>cleaned &amp; modelled</span></div>
     <div class="kpi"><b>6</b><span>model families<br>benchmarked</span></div>
     <div class="kpi"><b>{auc['Good']:.2f}</b><span>ROC-AUC<br>(Good tier)</span></div>
-    <div class="kpi"><b>{acc:.0f}%</b><span>test accuracy vs.<br>{base:.0f}% baseline</span></div>
+    <div class="kpi"><b>{acc:.0f}%</b><span>accuracy on new<br>customers vs {base:.0f}%</span></div>
   </div>
   <div class="foot"><span><b>Vassilis Tsoubris</b> · Machine Learning</span>
     <span>github.com/vtsou359/Credit_Score_Classification_Project</span></div>
@@ -219,10 +220,10 @@ h1 em {{ font-style:normal; background:linear-gradient(90deg,#F8906F 0%,#F05941 
   <div class="win">
     <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
       <span class="title">ScoreBridge · Applicant review</span>
-      <span class="pill">MODEL · GRADIENT BOOSTING</span></div>
+      <span class="pill">MODEL · {row['model'].upper()}</span></div>
     <div class="grid">
       <section class="panel a">
-        <div><div class="ph"><span>Sample applicant</span><span>Test set</span></div>
+        <div><div class="ph"><span>Sample applicant</span><span>Unseen</span></div>
         <div class="who">Age <b>{feats['Age']:.0f}</b> · Income <b>{feats['Annual_Income'] / 1000:.1f}K</b> / yr</div></div>
         <div>{gauge}
         <div class="pred"><span>Predicted tier</span><b>{pred}</b>
@@ -231,13 +232,13 @@ h1 em {{ font-style:normal; background:linear-gradient(90deg,#F8906F 0%,#F05941 
         <div class="facts">{facts_html}</div>
       </section>
       <section class="panel">
-        <div class="ph"><span>ROC · one-vs-rest</span><span>20K test</span></div>
+        <div class="ph"><span>ROC · one-vs-rest</span><span>Unseen</span></div>
         <div class="rocwrap">{roc_svg}</div>
       </section>
       <section class="panel c">
         <div class="ph"><span>Top drivers</span><span>Importance</span></div>
         <div class="drivers">{drivers}</div>
-        <div class="note">Impurity-based importance · 8 model inputs</div>
+        <div class="note">Impurity-based importance · {row['n_features']} model inputs</div>
       </section>
     </div>
   </div>

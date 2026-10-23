@@ -24,14 +24,15 @@ Graphics and copy for presenting this project in the **Projects** section of Lin
 >
 > • Cleaned 100K messy records (corrupted entries, impossible values, outliers) with customer-level imputation, and removed PII
 > • Ran EDA and expert-informed feature selection, then built scikit-learn preprocessing pipelines (scaling + one-hot/ordinal encoding)
-> • Benchmarked 6 model families (Logistic Regression, KNN, Decision Tree, SVM, Random Forest, Gradient Boosting), tuned with GridSearchCV and k-fold cross-validation on ROC-AUC
-> • Final Gradient Boosting model: 74% test accuracy vs a 53% baseline, with one-vs-rest ROC-AUC up to 0.91
+> • Benchmarked 6 model families (Logistic Regression, KNN, Decision Tree, SVM, Random Forest, Gradient Boosting) with GridSearchCV on ROC-AUC
+> • Caught data leakage: with 8 monthly records per customer, a random split put the same customers in train and test (Random Forest 80% → 66% on unseen customers). Re-validated by customer with GroupShuffleSplit + GroupKFold
+> • Final Random Forest: 70% accuracy on unseen customers vs a 53% baseline, ROC-AUC up to 0.87
 >
 > Stack: Python, pandas, scikit-learn, Matplotlib, Seaborn, Jupyter · Method: CRISP-DM
 
 **Skills to tag (up to 5):** Machine Learning · Python (Programming Language) · Scikit-Learn · Predictive Modeling · Feature Engineering
 
-**Also worth adding to the profile Skills section:** Data Science · Data Cleaning · Exploratory Data Analysis · pandas · Classification · Gradient Boosting · Hyperparameter Tuning · Model Evaluation · Credit Risk Modeling · Data Visualization
+**Also worth adding to the profile Skills section:** Data Science · Data Cleaning · Exploratory Data Analysis · Model Validation · Hyperparameter Tuning · Model Evaluation · Credit Risk Modeling · Data Visualization
 
 ## Brand
 
@@ -45,11 +46,11 @@ Graphics and copy for presenting this project in the **Projects** section of Lin
 
 ## Where the numbers come from
 
-Every chart value in the showcase is real. `source/reproduce_results.py` retrains the final Gradient Boosting
-pipeline from Notebook 4 (same features, split and hyperparameters) and reproduces the README results:
-test accuracy 0.74, one-vs-rest AUC 0.91 / 0.89 / 0.82. The ROC curves, feature importances and the sample
-applicant come from that run (`source/model_results.json`). The script also reports a customer-grouped split
-(no customer in both train and test) for comparison.
+Every chart value in the showcase is real. `source/reproduce_results.py` retrains the final model of Notebook 4, the
+Random Forest tuned with customer-level cross-validation (same data, 11 features, customer-level split and
+hyperparameters), and reproduces its results on the 2,500 unseen test customers: accuracy 69.9% (baseline 53.1%),
+one-vs-rest ROC-AUC 0.87 / 0.85 / 0.79. The ROC curves, feature importances and the sample applicant come from that
+run (`source/model_results.json`).
 
 ## Regenerate
 
@@ -57,8 +58,9 @@ Requires the Inter, Inter Display and JetBrains Mono fonts, and `npm i playwrigh
 
 ```bash
 cd branding/source
-python reproduce_results.py   # optional, needs pandas + scikit-learn; refreshes model_results.json
+python reproduce_results.py   # optional, needs the pinned requirements; refreshes model_results.json
 python build_assets.py        # writes build/*.html and ../scorebridge_logo.svg
 node render.js build/showcase.html ../scorebridge_showcase.png 1200 628 2
 node render.js build/logo.html ../scorebridge_logo.png 600 600 2
+node render.js crisp_dm_process.html ../../images/crisp_dm_process.png 1600 580 2
 ```
