@@ -222,9 +222,10 @@ def plot_confusion_matrix(grid_search, X_test, y_test):
     cm = confusion_matrix(y_test, y_pred)
 
 
-    # Plot confusion matrix
+    # Plot confusion matrix (class names on the axes instead of 0, 1, 2)
+    class_names = grid_search.best_estimator_.classes_
     plt.figure(figsize=(6, 6))  # Resize plot to allow space for formula and scores
-    sns.heatmap(cm, annot=True, fmt='', cmap='Blues')
+    sns.heatmap(cm, annot=True, fmt='', cmap='Blues', xticklabels=class_names, yticklabels=class_names)
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
     plt.title('Confusion Matrix of the Best Estimator: '+grid_search.best_estimator_.named_steps['estimator'].__class__.__name__)
