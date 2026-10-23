@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>CRISP-DM process</title>
+<style>
+  * { box-sizing:border-box; margin:0; }
+  html, body { width:1600px; height:580px; overflow:hidden; }
+  body { background:#FFFFFF; font-family:Inter, sans-serif; color:#1B1E28; position:relative;
+         -webkit-font-smoothing:antialiased; }
+  .row { position:absolute; left:48px; right:48px; top:150px; display:grid;
+         grid-template-columns:repeat(6, 1fr); gap:40px; }
+  .card { position:relative; background:#FAF7F5; border:1px solid #E6E0DC; border-radius:16px;
+          padding:22px 20px 22px; }
+  .num { width:34px; height:34px; border-radius:50%; background:#BE3144; color:#fff;
+         font:600 16px Inter; display:flex; align-items:center; justify-content:center; }
+  .card.eval .num { background:#872341; }
+  h3 { margin-top:16px; font:600 20px/1.2 Inter; letter-spacing:-.01em; }
+  p { margin-top:10px; font-size:15px; line-height:1.45; color:#4A4F5E; }
+  .arrow { position:absolute; top:50%; right:-34px; width:28px; height:2px; background:#9097A6; }
+  .arrow::after { content:""; position:absolute; right:-1px; top:-5px; border-left:9px solid #9097A6;
+                  border-top:6px solid transparent; border-bottom:6px solid transparent; }
+  .data { position:absolute; left:48px; right:48px; top:438px; height:62px; border-radius:14px;
+          background:#1B1E28; color:#F4F2F5; display:flex; align-items:center; gap:14px; padding:0 24px;
+          font-size:16px; }
+  .data b { font-weight:600; }
+  .data span { color:#A9AEBC; }
+  .tag { font:500 13px "JetBrains Mono"; letter-spacing:.08em; text-transform:uppercase; color:#F8906F; }
+  .title { position:absolute; left:48px; top:36px; font:600 26px Inter; letter-spacing:-.02em; }
+  .sub { position:absolute; left:48px; top:76px; font-size:16px; color:#4A4F5E; }
+  .loop-label { position:absolute; top:94px; font:500 14px Inter; color:#872341; background:#FFFFFF;
+                padding:0 10px; }
+  .foot { position:absolute; left:48px; bottom:28px; font-size:14px; color:#7D8294; }
+</style></head>
+<body>
+  <div class="title">CRISP-DM, as applied in this project</div>
+  <div class="sub">Six phases, run iteratively: evaluation findings send the work back to earlier phases.</div>
+
+  <!-- loop arrow: Evaluation (card 5) back to Data Preparation (card 3) -->
+  <svg width="1600" height="580" style="position:absolute;left:0;top:0" aria-hidden="true">
+    <defs><marker id="h" markerWidth="12" markerHeight="12" refX="6" refY="6" orient="auto">
+      <path d="M1,1 L11,6 L1,11 Z" fill="#872341"/></marker></defs>
+    <path d="M1186,148 C1186,116 1170,110 1140,110 L717,110 C687,110 671,116 671,140"
+          fill="none" stroke="#872341" stroke-width="2" marker-end="url(#h)"/>
+  </svg>
+  <div class="loop-label" style="left:704px;top:100px">iterate: customer-level re-validation after the leakage check</div>
+
+  <div class="row">
+    <div class="card"><div class="num">1</div><h3>Business understanding</h3>
+      <p>Financial inclusion: can ML predict a customer’s credit tier (Poor / Standard / Good)?</p><i class="arrow"></i></div>
+    <div class="card"><div class="num">2</div><h3>Data understanding</h3>
+      <p>100K monthly records, 28 columns: corrupted values, outliers, missing data.</p><i class="arrow"></i></div>
+    <div class="card"><div class="num">3</div><h3>Data preparation</h3>
+      <p>Customer-level cleaning and imputation, feature selection, scaling and encoding pipelines.</p><i class="arrow"></i></div>
+    <div class="card"><div class="num">4</div><h3>Modelling</h3>
+      <p>6 model families tuned with GridSearchCV and k-fold cross-validation on ROC-AUC.</p><i class="arrow"></i></div>
+    <div class="card eval"><div class="num">5</div><h3>Evaluation</h3>
+      <p>ROC-AUC, confusion matrices, overfitting checks and a data-leakage check.</p><i class="arrow"></i></div>
+    <div class="card"><div class="num">6</div><h3>Deployment</h3>
+      <p>Recommendation: Gradient Boosting for accuracy, Logistic Regression for speed.</p></div>
+  </div>
+
+  <div class="data"><span class="tag">Data</span><b>Kaggle “Credit Score Classification”</b>
+    <span>· 100,000 records · 12,500 customers × 8 months · target: Poor / Standard / Good</span></div>
+  <div class="foot">Process model: CRISP-DM (Cross-Industry Standard Process for Data Mining). Diagram drawn for this project.</div>
+</body></html>
